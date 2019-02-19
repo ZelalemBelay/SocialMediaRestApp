@@ -1,19 +1,47 @@
 package com.jfam.mobility;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Zeelo on 2/10/2019.
  */
+@Entity
 public class User {
+    public int getId1() {
+        return id1;
+    }
+
+    public void setId1(int id1) {
+        this.id1 = id1;
+    }
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+                int id1;
     String id;
     String profilePhoto;
     String city;
     String state;
     String username;
     String firstName;
+    String lastName;
+    @Transient
     List<User> friendList;
+    @Transient
+    List<User> mutualConnections = new ArrayList<>();
+
+    public User(){
+
+    }
+    public List<User> getMutualConnections() {
+        return mutualConnections;
+    }
+
+    public void setMutualConnections(List<User> mutualConnections) {
+        this.mutualConnections = mutualConnections;
+    }
 
     public void setFriendList(List<User> friendList) {
         this.friendList = friendList;
@@ -39,8 +67,6 @@ public class User {
     public void addFriend(User user){
         this.friendList.add(user);
     }
-
-    String lastName;
 
     public String getId() {
         return id;
